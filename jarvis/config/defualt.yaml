@@ -1,0 +1,110 @@
+# JARVIS default configuration
+# User overrides are stored in the platform config directory
+# (e.g. %APPDATA%\jarvis\config.yaml or ~/.config/jarvis/config.yaml)
+
+assistant:
+  name: JARVIS
+  personality: "A precise, calm, slightly dry British-inspired local assistant. Short spoken replies. Never invent successful computer actions — report what actually happened."
+  language: en
+
+wake_word:
+  phrase: "jarvis"
+  aliases: ["hey jarvis", "ok jarvis"]
+  stop_phrases: ["jarvis stop", "stop jarvis", "abort", "emergency stop", "cancel that"]
+  # Local-only detection. Audio is never uploaded.
+  engine: auto   # auto | vosk | openwakeword | porcupine | text
+  sensitivity: 0.6
+  cooldown_ms: 800
+
+audio:
+  input_device: default
+  output_device: default
+  sample_rate: 16000
+  channels: 1
+  vad_energy_threshold: 0.012
+  utterance_end_silence_ms: 900
+  max_utterance_seconds: 20
+  # browser | native | off
+  capture_backend: auto
+
+stt:
+  backend: auto   # auto | faster-whisper | whisper | vosk | browser
+  model: base     # whisper model size when using whisper backends
+  language: en
+  device: auto    # auto | cpu | cuda
+
+tts:
+  backend: auto   # auto | piper | pyttsx3 | espeak | browser | off
+  voice: ""
+  rate: 175
+  volume: 0.9
+
+llm:
+  backend: auto   # auto | ollama | llama.cpp | openai_compat | heuristic
+  model: llama3.2
+  # Local OpenAI-compatible servers (Ollama, llama.cpp, LM Studio, vLLM)
+  base_url: "http://127.0.0.1:11434"
+  api_key: ""
+  temperature: 0.2
+  max_tokens: 1024
+  timeout_seconds: 60
+  vision_model: ""          # e.g. llava — used only if installed locally
+  allow_cloud: false        # core never requires cloud; keep false for privacy
+
+hotkeys:
+  push_to_talk: "ctrl+shift+space"
+  emergency_stop: "ctrl+shift+escape"
+  toggle_listen: "ctrl+shift+j"
+  show_window: "ctrl+shift+h"
+
+permissions:
+  # safe | confirm | trusted | disabled
+  default_policy: confirm
+  require_confirmation_for:
+    - dangerous
+  auto_allow:
+    - safe
+  trusted_tools: []          # e.g. ["apps.launch", "web.open"]
+  trusted_apps: []           # apps that may be launched without confirm
+  trusted_directories: []    # extra dirs files tools may write without confirm
+  blocked_tools: []
+  allow_terminal: true
+  allow_file_delete: false   # must be explicitly enabled
+  allow_install: false
+  allow_system_settings: false
+
+paths:
+  # empty = platform user data dir
+  data_dir: ""
+  screenshot_dir: screenshots
+  download_dir: ""
+  workspace_dir: ""          # default folder for "organize these files"
+
+web:
+  bookmarks:
+    dashboard: ""
+    home: "https://www.google.com"
+  default_search: "https://www.google.com/search?q={query}"
+  youtube_search: "https://www.youtube.com/results?search_query={query}"
+  default_browser: ""
+
+planner:
+  max_steps: 12
+  max_retries: 1
+  verify_actions: true
+  replan_on_failure: true
+
+memory:
+  enabled: true
+  max_conversation_turns: 40
+  auto_extract_preferences: true
+
+ui:
+  host: 0.0.0.0
+  port: 8742
+  theme: hud
+  open_browser: false
+
+logging:
+  level: INFO
+  file: jarvis.log
