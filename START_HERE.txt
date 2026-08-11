@@ -1,0 +1,81 @@
+HOW TO RUN JARVIS ON YOUR WINDOWS PC
+====================================
+
+You already installed Python packages and pulled an Ollama model.
+You do NOT need to run those install commands again.
+
+Each new workspace zip is a FRESH folder. Old installs do not carry over.
+The first double-click of START_JARVIS.bat now installs packages for you.
+Wait until you see "Uvicorn running" before using the page.
+
+1. Open File Explorer.
+2. Go to your Downloads folder and open the unzipped project,
+   then open the inner "jarvis" folder.
+   You should see these things in the SAME folder:
+      START_JARVIS.bat
+      START_HERE.txt
+      jarvis          (a folder)
+      requirements.txt
+3. Double-click START_JARVIS.bat
+   First run: it will create .venv and install packages. Wait.
+4. A black window will stay open. That is the assistant process.
+   Leave it open. The page only works while this window is open.
+5. Your browser should open to:
+
+      http://127.0.0.1:8742
+
+   If it does not, paste that address into Chrome or Edge yourself.
+
+6. In the box at the bottom of the page, type:
+
+      check my CPU and GPU usage
+
+   and press Send. JARVIS should answer with real numbers.
+
+7. To talk with your mic, click the red dot, allow the microphone,
+   then say: JARVIS, check my CPU and GPU usage
+
+
+IF DOUBLE-CLICK DOES NOTHING
+----------------------------
+1. In the project folder, click the address bar, type  cmd  and press Enter.
+2. Paste this and press Enter:
+
+      python -m jarvis
+
+3. Open http://127.0.0.1:8742
+
+
+IF IT SAYS "No module named jarvis"
+-----------------------------------
+You are in the wrong folder. You must run the command FROM the folder
+that contains the "jarvis" folder AND START_JARVIS.bat.
+
+In File Explorer, open that folder, click the address bar, type cmd, Enter, then:
+
+      python -m jarvis
+
+
+IF THE PAGE WILL NOT LOAD
+-------------------------
+- The black window must stay open.
+- Wait until you see a line like: Uvicorn running on http://127.0.0.1:8742
+- Try http://127.0.0.1:8742 not https://
+
+
+OLLAMA
+------
+Ollama must be running in the background (the Ollama icon in the
+system tray). You already pulled a model, so that part is done.
+
+In the JARVIS page: Settings -> Model
+  backend: ollama
+  model:   llama3.2     (or whatever you pulled: ollama list)
+  URL:     http://127.0.0.1:11434
+then Save.
+
+
+TO STOP
+-------
+Close the black window, or type  JARVIS stop  in the page, or press
+Ctrl+Shift+Escape.
